@@ -1,4 +1,10 @@
 Instafix::Application.routes.draw do
+  resource :session do
+    collection do
+      get 'callback'
+      get 'logout'
+    end
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
