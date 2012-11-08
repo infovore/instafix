@@ -15,7 +15,7 @@
           .details
             - if session[:access_token]
               Logged in as
-              %i= NAME HERE
+              %i= current_user.fullname
               = link_to "Log out", logout_session_path
             - else
               = link_to "Log in", new_session_path
@@ -25,3 +25,4 @@
           %div{:class => "alert-message #{key}"}= value
       
       = yield
+

@@ -5,6 +5,8 @@ Instafix::Application.routes.draw do
       get 'logout'
     end
   end
+
+  resources :photos
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

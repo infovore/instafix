@@ -11,7 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121108170015) do
+ActiveRecord::Schema.define(:version => 20121108172958) do
+
+  create_table "photos", :force => true do |t|
+    t.string   "flickr_id"
+    t.string   "title"
+    t.text     "description"
+    t.text     "taglist"
+    t.boolean  "is_family"
+    t.boolean  "is_friend"
+    t.boolean  "is_public"
+    t.string   "thumb_url"
+    t.boolean  "is_hidden",   :default => false
+    t.integer  "user_id"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "username"

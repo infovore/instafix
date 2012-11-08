@@ -42,7 +42,7 @@ class SessionsController < ApplicationController
     # Attach the tokens to your flickr instance - you can now make authenticated calls with the flickr object
     flickr.access_token = oauth_token
     flickr.access_secret = oauth_token_secret
-    redirect_to photos_path(@user.username)
+    redirect_to photos_path
   end
 
   def logout
