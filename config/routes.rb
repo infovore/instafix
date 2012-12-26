@@ -6,7 +6,11 @@ Instafix::Application.routes.draw do
     end
   end
 
-  resources :photos
+  resources :photos do
+    collection do
+      post 'alter'
+    end
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

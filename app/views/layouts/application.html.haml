@@ -6,13 +6,13 @@
     = javascript_include_tag :application
     = csrf_meta_tag
   %body
-    .topbar
-      .topbar-inner
+    .navbar-inverse.navbar
+      .navbar-inner
         .container
-          %h3= link_to "Instafix", "/"
-          %ul.menu
+          = link_to "Instafix", "/", :class => :brand
+          %ul.nav
             %li= link_to "About", "/about"
-          .details
+          .details.pull-right
             - if session[:access_token]
               Logged in as
               %i= current_user.fullname

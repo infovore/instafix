@@ -4,4 +4,8 @@ class PhotosController < ApplicationController
   def index
     @photos = current_user.photos.visible(:order => "taken_at desc")
   end
+
+  def alter
+    render :text => params[:photos]
+  end
 end
