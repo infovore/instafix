@@ -7,7 +7,14 @@ $(document).ready(function() {
                        "iphoneography",
                        "instagramapp",
                        "normal",
-                       "valencia", "xproii"];
+                       "valencia", 
+                       "xproii", 
+                       "amaro", 
+                       "sierra", 
+                       "rise", 
+                       "hudson", 
+                       "lomofi", 
+                       "sutro"];
   $("#remove_instagram_tags").click(function() {
     $("input.taglist").each(function() {
       var rawTaglist = $(this).val();
@@ -15,5 +22,11 @@ $(document).ready(function() {
       var newTags = _.difference(tags, instagramTags);
       $(this).val(newTags.join(" "));
     });
+    return false;
+  });
+
+  $("#check_all").click(function() {
+    $(".checkbox input").attr("checked", "checked");
+    return false;
   });
 });

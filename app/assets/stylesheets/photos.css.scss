@@ -1,3 +1,26 @@
 // Place all the styles related to the photos controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+ul.photos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.photos li {
+  margin: 0 0 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+ul.photos li h4 {
+  margin: 0 0 10px;
+}
+
+ul.photos li h4 input {
+  font-weight: bold;
+}
+
+ul.photos li h4 input, ul.photos li textarea, ul.photos input.taglist {
+  width: 400px;
+}

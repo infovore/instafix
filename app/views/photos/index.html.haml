@@ -1,21 +1,23 @@
 %h1 Photos for #{current_user.fullname}
 
 %ul.actions
-  %li= link_to "Set all photos to be removed from Instafix after edit"
-  %li= link_to "Remove all instagram tags from tags.", "#", :id => "remove_instagram_tags"
+  %li= link_to "Set all photos to be removed from Instafix after edit", "#", :id => "check_all"
+  %li= link_to "Remove all auto-added Instagram tags from tags.", "#", :id => "remove_instagram_tags"
 = form_tag(alter_photos_path, :method => :post) do |f|
-  %p= submit_tag
-  %ul
-    - for photo in @photos
-      %li
-        .row
-          .span2= image_tag(photo.thumb_url)
-          .span9
-            = fields_for 'photos[]', photo do |photo_fields|
-              = photo_fields.hidden_field :flickr_id
-              %h4= photo_fields.text_field :title
-              %p= photo_fields.text_area :description
-              %p= photo_fields.text_field :taglist, :class => "taglist"
-              %p
-                = photo_fields.check_box :is_hidden
-                = photo_fields.label :is_hidden, "Hide this after edit"
+  %fieldset
+    %p= submit_tag("Update photos", :class => :btn)
+    %ul.photos
+      - for photo in @photos
+        %li
+          .row
+            .span2= image_tag(photo.thumb_url)
+            .span10
+              = fields_for 'photos[]', photo do |photo_fields|
+                = photo_fields.hidden_field :flickr_id
+                %h4= photo_fields.text_field :title
+                %p= photo_fields.text_area :description, :rows => 8 
+                %p= photo_fields.text_field :taglist, :class => "taglist"
+                %p
+                  %label.checkbox
+                    = photo_fields.check_box :is_hidden
+                    Hide this photo in Instafix after update.
