@@ -6,6 +6,13 @@ class PhotosController < ApplicationController
   end
 
   def alter
-    render :text => params[:photos]
+    #render :text => params[:photos]
+    params["photos"].each do |id, photo_hash|
+      if photo_hash["is_hidden"] == "1" 
+        actual_photo = Photo.find(id)
+        actual_photo.is_hidden = true
+        actual_photo.save
+      end
+    end
   end
 end

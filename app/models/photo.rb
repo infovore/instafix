@@ -3,6 +3,7 @@ class Photo < ActiveRecord::Base
   belongs_to :user
 
   scope :visible, :conditions => {:is_hidden => false}
+  scope :hidden, :conditions => {:is_hidden => true}
 
   def self.ingest_latest_for_user(user)
     FlickRaw.api_key = FLICKR_API_KEY
