@@ -1,0 +1,10 @@
+%h1 Photos for #{current_user.fullname}
+
+%ul
+  - for photo in @photos
+    %li
+      %h4= photo.title
+      %p= image_tag(photo.thumb_url)
+      %p= photo.description
+      %p
+        %code= photo.taglist
