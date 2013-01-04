@@ -5,6 +5,10 @@ class Photo < ActiveRecord::Base
   scope :visible, :conditions => {:is_hidden => false}
   scope :hidden, :conditions => {:is_hidden => true}
 
+  def public_web_page
+    "http://www.flickr.com/photos/#{self.user.nsid}/#{self.flickr_id}"
+  end
+
   def update_from_photo_hash(photo_hash)
     # update attributes
     self.title = photo_hash["title"]

@@ -14,7 +14,7 @@
         - for photo in @photos
           %li
             .row
-              .span2= image_tag(photo.thumb_url)
+              .span2= link_to image_tag(photo.thumb_url), photo.public_web_page
               .span10
                 = fields_for 'photos[]', photo do |photo_fields|
                   = photo_fields.hidden_field :flickr_id
