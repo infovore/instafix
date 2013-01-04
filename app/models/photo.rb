@@ -7,15 +7,15 @@ class Photo < ActiveRecord::Base
 
   def update_from_photo_hash(photo_hash)
     # update attributes
-    title = photo_hash["title"]
-    description = photo_hash["description"]
-    taglist = photo_hash["taglist"]
+    self.title = photo_hash["title"]
+    self.description = photo_hash["description"]
+    self.taglist = photo_hash["taglist"]
 
     # update hidden
     if photo_hash["is_hidden"] == "1" 
-      is_hidden = true
+      self.is_hidden = true
     end
-    save
+    self.save
   end
 
   def update_on_flickr_for_user(user)
