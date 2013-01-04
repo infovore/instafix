@@ -12,7 +12,7 @@ class PhotosController < ApplicationController
       actual_photo.update_from_photo_hash(photo_hash)
       
       # update flickr
-      actual_photo.update_on_flickr_for_user(current_user)
+      Resque.enqueue(FlickrFixer, id, current_user.id)
     end
     redirect_to photos_path
   end
