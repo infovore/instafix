@@ -1,7 +1,7 @@
 class FlickrFixer
   include Sidekiq::Worker
 
-  def self.perform(photo_id, user_id)
+  def perform(photo_id, user_id)
     photo = Photo.find(photo_id)
     user = User.find(user_id)
 
