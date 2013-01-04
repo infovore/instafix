@@ -12,7 +12,11 @@ Instafix::Application.routes.draw do
     end
   end
 
-  root :to => "photos#index"
+  resource :static
+
+  match "/about" => "static#about"
+
+  root :to => "static#show"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
