@@ -22,7 +22,7 @@
     .container.main
       #flash
         - flash.each do |key, value|
-          %div{:class => "alert-message #{key}"}= value
+          %div{:class => "alert alert-#{key}"}= value
       
       = yield
 

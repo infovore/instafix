@@ -2,7 +2,7 @@ class PhotosController < ApplicationController
   before_filter :require_user
   
   def index
-    @photos = current_user.photos.visible(:order => "taken_at desc")
+    @photos = current_user.photos.visible.order("taken_at DESC")
   end
 
   def alter
@@ -14,11 +14,13 @@ class PhotosController < ApplicationController
       # update flickr
       Resque.enqueue(FlickrFixer, id, current_user.id)
     end
+    flash[:success] = "Your photos are being modified. Please check Flickr shortly to see their fixed tags."
     redirect_to photos_path
   end
 
   def ingest
     Photo.ingest_latest_for_user(current_user)
+    flash[:success] = "Photos ingested!"
     redirect_to photos_path
   end
 end
