@@ -1,4 +1,8 @@
+require 'resque/server'
+
 Instafix::Application.routes.draw do
+  mount Resque::Server.new, :at => "/resque"
+  
   resource :session do
     collection do
       get 'callback'
