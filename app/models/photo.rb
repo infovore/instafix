@@ -19,8 +19,8 @@ class Photo < ActiveRecord::Base
   end
 
   def update_on_flickr_for_user(user)
-    FlickRaw.api_key = FLICKR_API_KEY
-    FlickRaw.shared_secret = FLICKR_SHARED_SECRET
+    FlickRaw.api_key = ENV['FLICKR_API_KEY']
+    FlickRaw.shared_secret = ENV['FLICKR_SHARED_SECRET']
     flickr = FlickRaw::Flickr.new
     flickr.access_token = user.oauth_token
     flickr.access_secret = user.oauth_token_secret
@@ -33,8 +33,8 @@ class Photo < ActiveRecord::Base
   end
 
   def self.ingest_latest_for_user(user)
-    FlickRaw.api_key = FLICKR_API_KEY
-    FlickRaw.shared_secret = FLICKR_SHARED_SECRET
+    FlickRaw.api_key = ENV['FLICKR_API_KEY']
+    FlickRaw.shared_secret = ENV['FLICKR_SHARED_SECRET']
     flickr = FlickRaw::Flickr.new
 
 

@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
-  FlickRaw.api_key = FLICKR_API_KEY
-  FlickRaw.shared_secret = FLICKR_SHARED_SECRET
+  FlickRaw.api_key = ENV['FLICKR_API_KEY']
+  FlickRaw.shared_secret = ENV['FLICKR_SHARED_SECRET']
 
   def new
     flickr = FlickRaw::Flickr.new
