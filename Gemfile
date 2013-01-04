@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.8'
 gem 'pg'
 gem 'sidekiq'
+gem 'slim'
+# if you require 'sinatra' you get the DSL extended to Object
+gem 'sinatra', :require => nil
 
 # Gems used only for assets and not required
 # in production environments by default.
