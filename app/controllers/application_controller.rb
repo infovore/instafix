@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   def require_user
     unless current_user
-      redirect_to root_path
+      redirect_to new_session_path
     end
   end
 

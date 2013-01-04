@@ -11,6 +11,8 @@ Instafix::Application.routes.draw do
       post 'alter'
     end
   end
+
+  root :to => "photos#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
