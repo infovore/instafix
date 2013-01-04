@@ -1,7 +1,6 @@
-require 'resque/server'
-
+require 'sidekiq/web'
 Instafix::Application.routes.draw do
-  mount Resque::Server.new, :at => "/resque"
+  mount Sidekiq::Web => '/sidekiq'
   
   resource :session do
     collection do

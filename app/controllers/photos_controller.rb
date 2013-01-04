@@ -12,7 +12,7 @@ class PhotosController < ApplicationController
       actual_photo.update_from_photo_hash(photo_hash)
       
       # update flickr
-      Resque.enqueue(FlickrFixer, id, current_user.id)
+      FlickrFixer.perform_async(id, current_user.id)
     end
     flash[:success] = "Your photos are being modified. Please check Flickr shortly to see their fixed tags."
     redirect_to photos_path
