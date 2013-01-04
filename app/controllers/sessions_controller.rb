@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
     session[:access_token] = oauth_token
     session[:token_secret] = oauth_token_secret
 
-    @user = User.find_or_create_by_oauth_token(raw_token["oauth_token"])
+    @user = User.find_or_create_by_oauth_token_and_oauth_token_secret(oauth_token, oauth_token_secret)
     if @user.username.blank?
       @user.update_attributes(:nsid => URI.unescape(raw_token['user_nsid']),
                               :username => raw_token['username'],
@@ -42,6 +42,8 @@ class SessionsController < ApplicationController
     # Attach the tokens to your flickr instance - you can now make authenticated calls with the flickr object
     flickr.access_token = oauth_token
     flickr.access_secret = oauth_token_secret
+
+    Photo.ingest_latest_for_user(@user)
     redirect_to photos_path
   end
 
