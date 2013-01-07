@@ -6,15 +6,18 @@ class PhotosController < ApplicationController
   end
 
   def alter
-    #render :text => params[:photos]
+    updated_photos_count = 0
     params["photos"].each do |id, photo_hash|
-      actual_photo = Photo.find(id)
-      actual_photo.update_from_photo_hash(photo_hash)
-      
-      # update flickr
-      FlickrFixer.perform_async(id, current_user.id)
+      if photo_hash["update"] == "1"
+        updated_photos_count += 1
+        actual_photo = Photo.find(id)
+        actual_photo.update_from_photo_hash(photo_hash)
+        
+        # update flickr
+        FlickrFixer.perform_async(id, current_user.id)
+      end
     end
-    flash[:success] = "Your photos are being modified. Please check Flickr shortly to see their fixed tags."
+    flash[:success] = "#{updated_photos_count} photos are being modified. Please check Flickr shortly to see their fixed tags."
     redirect_to photos_path
   end
 

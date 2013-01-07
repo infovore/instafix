@@ -22,11 +22,28 @@ $(document).ready(function() {
       var newTags = _.difference(tags, instagramTags);
       $(this).val(newTags.join(" "));
     });
+    updateAllPhotos();
     return false;
   });
 
   $("#check_all").click(function() {
     $(".checkbox input").attr("checked", "checked");
+    updateAllPhotos();
     return false;
   });
+
+  $("input, textarea").focus(function() {
+    updateThisPhoto(this);
+  });
+
+  function updateThisPhoto(el) {
+    var cbs = $(el).parents("fieldset").find(".update_cb");
+    if(cbs.length > 0) {
+      $(cbs[0]).attr("checked", "checked");
+    }
+  }
+
+  function updateAllPhotos() {
+    $(".update_cb").attr("checked", "checked");
+  }
 });

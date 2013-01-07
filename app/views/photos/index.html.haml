@@ -4,18 +4,18 @@
   %li= link_to "Set all photos to be removed from Instafix after edit", "#", :id => "check_all"
   %li= link_to "Remove all auto-added Instagram tags from tags.", "#", :id => "remove_instagram_tags"
 = form_tag(alter_photos_path, :method => :post) do |f|
-  %fieldset
-    %p
-      - if @photos.any?
-        = submit_tag("Update photos on Flickr", :class => :btn)
-      = link_to("Ingest new photos from Flickr", ingest_photos_path, :class => :btn)
+  %p
     - if @photos.any?
-      %ul.photos
-        - for photo in @photos
-          %li
-            .row
-              .span2= link_to image_tag(photo.thumb_url), photo.public_web_page
-              .span10
+      = submit_tag("Update photos on Flickr", :class => :btn)
+    = link_to("Ingest new photos from Flickr", ingest_photos_path, :class => :btn)
+  - if @photos.any?
+    %ul.photos
+      - for photo in @photos
+        %li
+          .row
+            .span2= link_to image_tag(photo.thumb_url), photo.public_web_page
+            .span10
+              %fieldset
                 = fields_for 'photos[]', photo do |photo_fields|
                   = photo_fields.hidden_field :flickr_id
                   %h4= photo_fields.text_field :title
@@ -25,5 +25,9 @@
                     %label.checkbox
                       = photo_fields.check_box :is_hidden
                       Hide this photo in Instafix after update.
+                  .hidden
+                    %label.checkbox
+                      = photo_fields.check_box :update, :class => "update_cb"
+                      update this field?
       %p
         = submit_tag("Update photos on Flickr", :class => :btn)
