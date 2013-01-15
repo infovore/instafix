@@ -1,40 +1,39 @@
 %h1 Instagram pictures on Flickr for #{current_user.fullname}
 
 = form_tag(alter_photos_path, :method => :post) do |f|
-  %p First, update your photographs from Flickr:
+  %p First, ingest your latest Instagram photographs from Flickr:
   %p= link_to("Ingest new photos from Flickr", ingest_photos_path, :class => :btn)
 
-  %p Then, you might want to do the boring automatic tasks in one fell swoop: removing the Instagram tags from pictures (other than the automatic machine tag) and making sure that once photos are edited, they won't show up in Instafix again.
-
-  %ul.actions
-    %li= link_to "Remove all auto-added Instagram tags from tags.", "#", :id => "remove_instagram_tags"
-    %li= link_to "Set all photos to be removed from Instafix after edit", "#", :id => "check_all"
-
-  %p And finally, before you hit the "Update photos on Flickr" to push the updates to Flickr, you might want to update the titles, descriptions, and tags for individual pictures, below:
-
-  %p
-    - if @photos.any?
-      = submit_tag("Update these photos on Flickr", :class => :btn)
   - if @photos.any?
-    %ul.photos
-      - for photo in @photos
-        %li
-          .row
-            .span2= link_to image_tag(photo.thumb_url), photo.public_web_page
-            .span10
-              %fieldset
-                = fields_for 'photos[]', photo do |photo_fields|
-                  = photo_fields.hidden_field :flickr_id
-                  %h4= photo_fields.text_field :title
-                  %p= photo_fields.text_area :description, :rows => 8 
-                  %p= photo_fields.text_field :taglist, :class => "taglist"
-                  %p
-                    %label.checkbox
-                      = photo_fields.check_box :is_hidden
-                      Hide this photo in Instafix after update.
-                  .hidden
-                    %label.checkbox
-                      = photo_fields.check_box :update, :class => "update_cb"
-                      update this field?
-      %p
-        = submit_tag("Update these photos on Flickr", :class => :btn)
+    %p Then, you might want to do the boring automatic tasks in one fell swoop: removing the Instagram tags from pictures (other than the automatic machine tag) and making sure that once photos are edited, they won't show up in Instafix again.
+
+    %ul.actions
+      %li= link_to "Remove all auto-added Instagram tags from tags.", "#", :id => "remove_instagram_tags"
+      %li= link_to "Set all photos to be removed from Instafix after edit", "#", :id => "check_all"
+
+    %p And finally, before you hit the "Update photos on Flickr" to push the updates to Flickr, you might want to update the titles, descriptions, and tags for individual pictures, below:
+
+    %p
+      = submit_tag("Update these photos on Flickr", :class => :btn)
+      %ul.photos
+        - for photo in @photos
+          %li
+            .row
+              .span2= link_to image_tag(photo.thumb_url), photo.public_web_page
+              .span10
+                %fieldset
+                  = fields_for 'photos[]', photo do |photo_fields|
+                    = photo_fields.hidden_field :flickr_id
+                    %h4= photo_fields.text_field :title
+                    %p= photo_fields.text_area :description, :rows => 8 
+                    %p= photo_fields.text_field :taglist, :class => "taglist"
+                    %p
+                      %label.checkbox
+                        = photo_fields.check_box :is_hidden
+                        Hide this photo in Instafix after update.
+                    .hidden
+                      %label.checkbox
+                        = photo_fields.check_box :update, :class => "update_cb"
+                        update this field?
+        %p
+          = submit_tag("Update these photos on Flickr", :class => :btn)
