@@ -27,8 +27,20 @@ class Photo < ActiveRecord::Base
     FlickRaw.shared_secret = ENV['FLICKR_SHARED_SECRET']
     flickr = FlickRaw::Flickr.new
 
+    size = 500
+    page = 1
+    photolist = []
 
-    photolist = flickr.photos.search(:user_id => user.nsid, :machine_tags => 'uploaded:by="instagram"', :extras => 'description,tags,url_q,date_taken')
+    while size == 500 do
+      results = flickr.photos.search(:user_id => user.nsid, 
+                                     :machine_tags => 'uploaded:by="instagram"', 
+                                     :extras => 'description,tags,url_q,date_taken',
+                                     :per_page => 500,
+                                     :page => page)
+      results.each {|r| photolist << r }
+      size = results.size
+      page += 1
+    end
 
     ingest_photolist_for_user(photolist, user)
   end
