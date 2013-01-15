@@ -30,11 +30,18 @@ class Photo < ActiveRecord::Base
     size = 500
     page = 1
     photolist = []
+    since = 1
+
+    if user.photos.any?
+      first_photo = user.photos.sort_by(&:taken_at).first
+      since = first_photo.taken_at.to_i
+    end
 
     while size == 500 do
       results = flickr.photos.search(:user_id => user.nsid, 
                                      :machine_tags => 'uploaded:by="instagram"', 
                                      :extras => 'description,tags,url_q,date_taken',
+                                     :min_taken_date => since,
                                      :per_page => 500,
                                      :page => page)
       results.each {|r| photolist << r }
