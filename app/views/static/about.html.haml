@@ -6,7 +6,14 @@
 
 %p You can also choose to hide a photo from Instafix when it's edited - meaning you'll only see photos you want to edit.
 
-%p To use Instafix, you'll need to sign in with Flickr:
+%p Needless to say: Instafix is not responsible for any unintended alterations that happen to your photos. <b>You use Instafix at your own risk.</b>
 
-.sign-in-button
-  .btn= link_to "Sign in to Flickr", photos_path
+- if !current_user
+  %p To use Instafix, you'll need to sign in with Flickr:
+
+  .sign-in-button
+    .btn= link_to "Sign in to Flickr", photos_path
+
+%hr
+
+%p Instafix is by <a href="http://infovore.org">Tom Armitage.</a> <a href="https://github.com/infovore/instafix">Source is on Github.</a>
