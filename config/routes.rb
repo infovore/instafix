@@ -1,5 +1,8 @@
 require 'sidekiq/web'
 Instafix::Application.routes.draw do
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == 'sidekiq' && password == 'p1nk3rt0n'
+  end 
   mount Sidekiq::Web => '/sidekiq'
   
   resource :session do
