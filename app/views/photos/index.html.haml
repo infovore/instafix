@@ -3,8 +3,9 @@
 = form_tag(alter_photos_path, :method => :post) do |f|
   %p First, ingest your latest Instagram photographs from Flickr:
   %p
-    = link_to("Ingest new photos from Flickr", ingest_photos_path, :class => :btn)
-    or
+    - if current_user.photos.any?
+      = link_to("Ingest new photos from Flickr", ingest_photos_path, :class => :btn)
+      or
     = link_to("Ingest all photos from Flickr", ingest_all_photos_path, :class => :btn)
 
 
