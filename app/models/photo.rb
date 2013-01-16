@@ -23,6 +23,20 @@ class Photo < ActiveRecord::Base
   end
 
   def self.ingest_latest_for_user(user)
+    since = 1
+
+    if user.photos.any?
+      first_photo = user.photos.sort_by(&:taken_at).first
+      since = first_photo.taken_at.to_i
+    end
+    ingest_photos_for_user_since(user, since)
+  end
+
+  def self.ingest_all_for_user(user)
+    ingest_photos_for_user_since(user,1)
+  end
+
+  def self.ingest_photos_for_user_since(user, since)
     FlickRaw.api_key = ENV['FLICKR_API_KEY']
     FlickRaw.shared_secret = ENV['FLICKR_SHARED_SECRET']
     flickr = FlickRaw::Flickr.new
@@ -30,12 +44,6 @@ class Photo < ActiveRecord::Base
     size = 500
     page = 1
     photolist = []
-    since = 1
-
-    if user.photos.any?
-      first_photo = user.photos.sort_by(&:taken_at).first
-      since = first_photo.taken_at.to_i
-    end
 
     while size == 500 do
       results = flickr.photos.search(:user_id => user.nsid, 

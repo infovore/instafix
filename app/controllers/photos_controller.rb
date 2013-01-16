@@ -26,4 +26,10 @@ class PhotosController < ApplicationController
     flash[:success] = "Photos ingested!"
     redirect_to photos_path
   end
+
+  def ingest_all
+    Photo.ingest_all_for_user(current_user)
+    flash[:success] = "Photos ingested!"
+    redirect_to photos_path
+  end
 end

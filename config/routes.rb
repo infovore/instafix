@@ -16,6 +16,7 @@ Instafix::Application.routes.draw do
     collection do
       post 'alter'
       get 'ingest'
+      get 'ingest_all'
     end
   end
 
